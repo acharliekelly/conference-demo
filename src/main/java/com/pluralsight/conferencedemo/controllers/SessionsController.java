@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/v1/sessions")
 public class SessionsController {
@@ -23,7 +24,7 @@ public class SessionsController {
     @GetMapping
     @RequestMapping("{id}")
     public Session get(@PathVariable Long id) {
-        return sessionRepository.getOne(id);
+        return sessionRepository.getReferenceById(id);
     }
 
     @PostMapping
@@ -41,7 +42,7 @@ public class SessionsController {
     public Session update(@PathVariable Long id, @RequestBody Session session) {
         // PUT -> all attributes
         // TODO: add validation that all attributes are passed in, otherwise return 400
-        Session existingSession = sessionRepository.getOne(id);
+        Session existingSession = sessionRepository.getReferenceById(id);
 //        BeanUtils.copyProperties(session, existingSession, ...ignoreProperties:"session_id");
         BeanUtils.copyProperties(session, existingSession);
         return existingSession;

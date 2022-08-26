@@ -24,12 +24,12 @@ public class SpeakersController {
     @GetMapping
     @RequestMapping("{id}")
     public Speaker get(@PathVariable Long id) {
-        return speakerRepository.getOne(id);
+        return speakerRepository.getReferenceById(id);
     }
 
     @PostMapping
     public Speaker create(@RequestBody final Speaker speaker) {
-        return sessionRepository.saveAndFlush(session);
+        return speakerRepository.saveAndFlush(speaker);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -41,7 +41,7 @@ public class SpeakersController {
     public Speaker update(@PathVariable Long id, @RequestBody Speaker speaker) {
         // PUT -> all attributes
         // TODO: add validation that all attributes are passed in, otherwise return 400
-        Speaker existingSpeaker = speakerRepository.getOne(id);
+        Speaker existingSpeaker = speakerRepository.getReferenceById(id);
 //        BeanUtils.copyProperties(speaker, existingSpeaker, ...ignoreProperties:"speaker_id");
         BeanUtils.copyProperties(speaker, existingSpeaker);
         return existingSpeaker;
